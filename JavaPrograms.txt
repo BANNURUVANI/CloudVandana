@@ -1,0 +1,100 @@
+1
+import java.util.Arrays;
+import java.util.Random;
+
+public class ArrayShuffle {
+    public static void main(String[] args) {
+        int[] originalArray = {1, 2, 3, 4, 5, 6, 7};
+        shuffleArray(originalArray);
+        System.out.println("Shuffled Array: " + Arrays.toString(originalArray));
+    }
+
+    public static void shuffleArray(int[] array) {
+        Random rand = new Random();
+
+        for (int i = array.length - 1; i > 0; i--) {
+            int index = rand.nextInt(i + 1);
+
+            int temp = array[i];
+            array[i] = array[index];
+            array[index] = temp;
+        }
+    }
+}
+
+2
+import java.util.HashMap;
+import java.util.Map;
+
+public class RomanToInteger {
+    public static void main(String[] args) {
+        String romanNumeral = "IX"; // Example Roman numeral: IX
+        int result = romanToInt(romanNumeral);
+        System.out.println("The integer value of " + romanNumeral + " is: " + result);
+    }
+
+    public static int romanToInt(String s) {
+        
+        Map<Character, Integer> romanToInteger = new HashMap<>();
+        romanToInteger.put('I', 1);
+        romanToInteger.put('V', 5);
+        romanToInteger.put('X', 10);
+        romanToInteger.put('L', 50);
+        romanToInteger.put('C', 100);
+        romanToInteger.put('D', 500);
+        romanToInteger.put('M', 1000);
+
+        int result = 0;
+        int prevValue = 0;
+
+        for (int i = s.length() - 1; i >= 0; i--) {
+            int currValue = romanToInteger.get(s.charAt(i));
+
+           
+            if (currValue < prevValue) {
+                result -= currValue;
+            } else {
+                result += currValue;
+            }
+
+            prevValue = currValue;
+        }
+
+        return result;
+    }
+}
+
+3
+public class PangramChecker {
+    public static void main(String[] args) {
+        String input = "The quick brown fox jumps over the lazy dog";
+        boolean isPangram = isPangram(input);
+        System.out.println("Is the input a pangram? " + isPangram);
+    }
+
+    public static boolean isPangram(String input) {
+        
+        input = input.toLowerCase();
+
+        
+        boolean[] alphabetPresent = new boolean[26];
+
+        
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            if (ch >= 'a' && ch <= 'z') {
+                int index = ch - 'a';
+                alphabetPresent[index] = true;
+            }
+        }
+
+       
+        for (boolean present : alphabetPresent) {
+            if (!present) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+}
